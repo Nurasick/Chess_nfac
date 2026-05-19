@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { http, HttpResponse } from 'msw'
 import { server } from '../test/server'
-import { AuthError, getMe, login } from './apiClient'
+import { AuthError, getLeaderboard, getMe, login, makeMove, refreshToken } from './apiClient'
 
 const BASE = 'http://localhost:8080'
 
@@ -124,5 +124,70 @@ describe('getMe()', () => {
     )
 
     await expect(getMe()).rejects.toThrow(AuthError)
+  })
+})
+
+describe('refreshToken()', () => {
+  it('returns new tokens on success', async () => {
+    server.use(
+      http.post(`${BASE}/auth/refresh`, () =>
+        HttpResponse.json({
+          data: { access_token: 'new.jwt', refresh_token: 'new-refresh' },
+          error: null,
+          message: 'Token refreshed successfully',
+        })
+      )
+    )
+
+    const result = await refreshToken('old-refresh')
+    expect(result.data.access_token).toBe('new.jwt')
+    expect(result.data.refresh_token).toBe('new-refresh')
+  })
+})
+
+describe('makeMove()', () => {
+  it('posts move and returns response', async () => {
+    server.use(
+      http.post(`${BASE}/games/uuid-g1/moves`, () =>
+        HttpResponse.json({ data: {}, error: null, message: 'Move recorded' })
+      )
+    )
+
+    const result = await makeMove('uuid-g1', 'e2e4')
+    expect(result.message).toBe('Move recorded')
+  })
+})
+
+describe('getLeaderboard()', () => {
+  it('returns paginated leaderboard', async () => {
+    server.use(
+      http.get(`${BASE}/leaderboard`, () =>
+        HttpResponse.json({
+          data: [],
+          error: null,
+          message: 'ok',
+          total: 0,
+          page: 1,
+          limit: 20,
+        })
+      )
+    )
+
+    const result = await getLeaderboard()
+    expect(result.total).toBe(0)
+  })
+
+  it('passes city filter in query string', async () => {
+    let capturedUrl: string | null = null
+    server.use(
+      http.get(`${BASE}/leaderboard`, ({ request }) => {
+        capturedUrl = request.url
+        return HttpResponse.json({ data: [], error: null, message: 'ok', total: 0, page: 1, limit: 20 })
+      })
+    )
+
+    await getLeaderboard('almaty', 1, 10)
+    expect(capturedUrl).toContain('city=almaty')
+    expect(capturedUrl).toContain('limit=10')
   })
 })
