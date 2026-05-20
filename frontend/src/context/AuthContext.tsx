@@ -73,9 +73,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const refresh = useCallback(async () => {
     const storedRefresh = localStorage.getItem('refresh_token')
     if (!storedRefresh) throw new Error('No refresh token')
-    const res = await post<RefreshResponse>('/auth/refresh', { refresh_token: storedRefresh })
+    const res = await post<any>('/auth/refresh', { refresh_token: storedRefresh }) // Changed generic to <any>
     
-    // 🖥️ FIX: Grab variables out of the nested data layer
     const { access_token, refresh_token } = res.data
     
     setAccessToken(access_token)

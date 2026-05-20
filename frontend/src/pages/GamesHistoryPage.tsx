@@ -35,7 +35,7 @@ export function GamesHistoryPage() {
           const isWhite = game.white_id === user?.id
           const myColor: Color = isWhite ? 'white' : 'black'
           const opponent = isWhite ? game.black_id : game.white_id
-          const resultText = formatResult(game.result, myColor)
+          const resultText = formatResult(game.result as any, myColor)
           return (
             <Link key={game.id} to={`/game/${game.id}`} className={styles.gameLink}>
               <Card interactive>

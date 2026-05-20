@@ -34,9 +34,9 @@ export function useChessBoard(initialFen?: string) {
   const syncState = useCallback((extra?: Partial<ChessBoardState>) => {
     setBoardState(prev => ({
       ...prev,
-      fen: chessRef.current.getFen(),
-      isCheck: chessRef.current.isCheck(),
-      isGameOver: chessRef.current.isGameOver(),
+      fen: chessRef.current!.getFen(),
+      isCheck: chessRef.current!.isCheck(),
+      isGameOver: chessRef.current!.isGameOver(),
       ...extra,
     }))
   }, [])
@@ -50,7 +50,7 @@ export function useChessBoard(initialFen?: string) {
   }, [initialFen, syncState])
 
   const selectSquare = useCallback((square: string) => {
-    const moves = chessRef.current.getLegalMovesVerbose(square)
+    const moves = chessRef.current!.getLegalMovesVerbose(square)
     const targets = (moves as Array<{ to: string }>).map(m => m.to)
     setBoardState(prev => ({
       ...prev,
@@ -60,7 +60,7 @@ export function useChessBoard(initialFen?: string) {
   }, [])
 
   const makeMove = useCallback((from: string, to: string, promotion?: string): boolean => {
-    const result = chessRef.current.validateMove(from, to, promotion)
+    const result = chessRef.current!.validateMove(from, to, promotion)
     if (!result) return false
     syncState({
       selectedSquare: null,
@@ -71,21 +71,21 @@ export function useChessBoard(initialFen?: string) {
   }, [syncState])
 
   const loadPosition = useCallback((fen: string) => {
-    chessRef.current.loadFen(fen)
+    chessRef.current!.loadFen(fen)
     syncState({ selectedSquare: null, legalMoves: [], lastMove: null })
   }, [syncState])
 
   const applyServerMove = useCallback((move: string, fen: string) => {
-    chessRef.current.loadFen(fen)
+    chessRef.current!.loadFen(fen)
     const from = move.slice(0, 2)
     const to = move.slice(2, 4)
     syncState({ selectedSquare: null, legalMoves: [], lastMove: { from, to } })
   }, [syncState])
 
-  const getTurn = useCallback((): Color => chessRef.current.getTurn(), [])
-  const getHistory = useCallback(() => chessRef.current.getHistory(), [])
+  const getTurn = useCallback((): Color => chessRef.current!.getTurn(), [])
+  const getHistory = useCallback(() => chessRef.current!.getHistory(), [])
   const reset = useCallback(() => {
-    chessRef.current.reset()
+    chessRef.current!.reset()
     syncState({ selectedSquare: null, legalMoves: [], lastMove: null })
   }, [syncState])
 
