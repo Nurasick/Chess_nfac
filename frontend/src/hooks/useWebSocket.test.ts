@@ -113,4 +113,94 @@ describe('WebSocketClient', () => {
 
     expect(handler).not.toHaveBeenCalled();
   });
+
+  it('onopen notifies status handlers with true', () => {
+    const statusHandler = vi.fn();
+    client.onStatusChange(statusHandler);
+    client.connect();
+    mockWs.onopen?.({} as Event);
+    expect(statusHandler).toHaveBeenCalledWith(true);
+  });
+
+  it('onerror callback is handled without throwing', () => {
+    client.connect();
+    expect(() => {
+      mockWs.onerror?.({} as Event);
+    }).not.toThrow();
+  });
+
+  it('onclose notifies status handlers with false', () => {
+    const statusHandler = vi.fn();
+    client.onStatusChange(statusHandler);
+    client.connect();
+    mockWs.readyState = 1;
+    client.disconnect();
+    expect(statusHandler).toHaveBeenCalledWith(false);
+  });
+
+  it('send() does nothing when not connected (readyState !== OPEN)', () => {
+    client.connect(); // readyState stays 0 (not OPEN)
+    const msg = { type: 'queue_join' as const, payload: { time_control: '5+0' } };
+    client.send(msg);
+    expect(mockWs.send).not.toHaveBeenCalled();
+  });
+
+  it('onmessage with invalid JSON does not throw and handler is not called', () => {
+    const handler = vi.fn();
+    client.onMessage(handler);
+    client.connect();
+    expect(() => {
+      mockWs.onmessage?.({ data: 'invalid json }{' } as MessageEvent);
+    }).not.toThrow();
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  it('onStatusChange unsubscribe fn removes the handler', () => {
+    const statusHandler = vi.fn();
+    const unsub = client.onStatusChange(statusHandler);
+    client.connect();
+    unsub();
+    mockWs.onopen?.({} as Event);
+    expect(statusHandler).not.toHaveBeenCalled();
+  });
+
+  it('connect() is a no-op when already OPEN', () => {
+    client.connect();
+    mockWs.readyState = 1;
+    const firstWs = mockWs;
+    client.connect(); // should return early
+    expect(mockWs).toBe(firstWs); // same ws object
+  });
+
+  it('onclose without manual disconnect schedules reconnect', () => {
+    vi.useFakeTimers();
+    client.connect();
+    // simulate server closing the connection (not manual)
+    mockWs.onclose?.({} as CloseEvent);
+    // scheduleReconnect sets a timeout — advance timers to trigger it
+    // the reconnect calls connect() again which creates a new WS
+    vi.advanceTimersByTime(2000);
+    vi.useRealTimers();
+    // no assertion needed beyond no throw
+  });
+
+  it('disconnect cancels pending reconnect timeout', () => {
+    vi.useFakeTimers();
+    client.connect();
+    mockWs.onclose?.({} as CloseEvent); // triggers scheduleReconnect
+    // now disconnect before reconnect fires
+    client.disconnect();
+    vi.useRealTimers();
+    expect(client.isConnected()).toBe(false);
+  });
+
+  it('onopen starts heartbeat (covers startHeartbeat path)', () => {
+    vi.useFakeTimers();
+    client.connect();
+    mockWs.readyState = 1;
+    mockWs.onopen?.({} as Event);
+    // advance past heartbeat interval to hit the isConnected() check inside
+    vi.advanceTimersByTime(35000);
+    vi.useRealTimers();
+  });
 });

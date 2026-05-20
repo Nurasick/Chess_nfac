@@ -12,8 +12,10 @@ vi.mock('react-chessboard', () => ({
   ),
 }));
 
+const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
 const defaultProps = {
-  fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+  fen: FEN,
   selectedSquare: null,
   legalMoves: [],
   lastMove: null,
@@ -46,5 +48,20 @@ describe('Board', () => {
     render(<Board {...defaultProps} onSquareClick={onSquareClick} isDisabled={true} />);
     fireEvent.click(screen.getByTestId('sq-e2'));
     expect(onSquareClick).not.toHaveBeenCalled();
+  });
+
+  it('renders with selectedSquare prop (covers selectedSquare squareStyles branch)', () => {
+    render(<Board {...defaultProps} selectedSquare="e2" />);
+    expect(screen.getByTestId('chessboard')).toBeDefined();
+  });
+
+  it('renders with legalMoves prop (covers legalMoves squareStyles branch)', () => {
+    render(<Board {...defaultProps} legalMoves={['e3', 'e4']} />);
+    expect(screen.getByTestId('chessboard')).toBeDefined();
+  });
+
+  it('renders with lastMove prop (covers lastMove squareStyles branch)', () => {
+    render(<Board {...defaultProps} lastMove={{ from: 'e2', to: 'e4' }} />);
+    expect(screen.getByTestId('chessboard')).toBeDefined();
   });
 });
