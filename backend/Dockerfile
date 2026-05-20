@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=builder /app/chess-server .
 
 # Copy the entrypoint script into the container
-COPY backend/entrypoint.sh .
+COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
 # Use ENTRYPOINT to handle the migration flow
