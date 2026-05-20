@@ -22,12 +22,39 @@ const queryClient = new QueryClient({
   },
 })
 
+// Dynamic calculation of the production/local WebSocket URL
+const calculateWsUrl = (): string => {
+  // If you explicitly set a VITE_WS_URL variable on Vercel, use it directly
+  if (import.meta.env.VITE_WS_URL) {
+    return import.meta.env.VITE_WS_URL;
+  }
+
+  // Otherwise, fall back to adapting your VITE_API_URL dynamically
+  const apiBaseUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
+  
+  // Choose secure wss:// for production or ws:// for local development
+  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  
+  // Strip out http:// or https:// from your base address
+  let cleanHost = apiBaseUrl.replace(/^https?:\/\//, '');
+
+  // Strip trailing /api/v1 because the Go Chi Router listens for WebSockets at the root level (/ws)
+  if (cleanHost.endsWith('/api/v1')) {
+    cleanHost = cleanHost.slice(0, -7);
+  }
+
+  return `${protocol}//${cleanHost}/ws`;
+}
+
+const WS_URL = calculateWsUrl();
+
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
-          <WebSocketProvider url={import.meta.env.VITE_WS_URL ?? 'ws://localhost:8080/ws'}>
+          {/* Pass the dynamically generated, clean connection string */}
+          <WebSocketProvider url={WS_URL}>
             <GameProvider>
               <Header />
               <Routes>
