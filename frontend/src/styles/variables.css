@@ -1,0 +1,223 @@
+/**
+ * Design Tokens & CSS Custom Properties
+ * Dark Luxury Chess Theme
+ */
+
+:root {
+  /* Primary Colors */
+  --color-primary: oklch(64% 0.18 260);
+  --color-primary-light: oklch(75% 0.14 260);
+  --color-primary-dark: oklch(50% 0.22 260);
+
+  /* Backgrounds */
+  --color-bg-base: oklch(14% 0 0);
+  --color-bg-elevated: oklch(18% 0 0);
+  --color-bg-interactive: oklch(22% 0 0);
+  --color-bg-hover: oklch(26% 0 0);
+
+  /* Text */
+  --color-text-primary: oklch(95% 0 0);
+  --color-text-secondary: oklch(75% 0 0);
+  --color-text-tertiary: oklch(60% 0 0);
+  --color-text-inverse: oklch(14% 0 0);
+
+  /* Status Colors */
+  --color-success: oklch(70% 0.19 142);
+  --color-warning: oklch(75% 0.19 54);
+  --color-error: oklch(65% 0.22 10);
+  --color-info: oklch(65% 0.18 260);
+
+  /* Chess-Specific Colors */
+  --color-board-light: oklch(85% 0.04 60);
+  --color-board-dark: oklch(35% 0.08 60);
+  --color-board-highlight: oklch(70% 0.22 260);
+  --color-board-previous: oklch(50% 0.12 60);
+  --color-check: oklch(65% 0.22 10);
+  --color-white-piece: oklch(95% 0 0);
+  --color-black-piece: oklch(18% 0 0);
+
+  /* Borders */
+  --color-border-subtle: oklch(25% 0 0);
+  --color-border-default: oklch(35% 0 0);
+  --color-border-focus: var(--color-primary);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+
+  --text-xs: clamp(0.75rem, 0.71rem + 0.2vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.83rem + 0.2vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.07rem + 0.3vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.41rem + 0.45vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.78rem + 0.5vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 2.13rem + 0.6vw, 2.75rem);
+  --text-5xl: clamp(2.75rem, 2.59rem + 0.8vw, 3.5rem);
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing Scale */
+  --space-0: 0;
+  --space-1: clamp(0.25rem, 0.24rem + 0.05vw, 0.375rem);
+  --space-2: clamp(0.5rem, 0.48rem + 0.1vw, 0.75rem);
+  --space-3: clamp(0.75rem, 0.71rem + 0.2vw, 1rem);
+  --space-4: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+  --space-5: clamp(1.25rem, 1.19rem + 0.3vw, 1.5rem);
+  --space-6: clamp(1.5rem, 1.43rem + 0.35vw, 1.875rem);
+  --space-7: clamp(1.875rem, 1.78rem + 0.45vw, 2.25rem);
+  --space-8: clamp(2.25rem, 2.13rem + 0.6vw, 2.75rem);
+  --space-9: clamp(2.75rem, 2.59rem + 0.8vw, 3.5rem);
+  --space-10: clamp(3.5rem, 3.28rem + 1vw, 4.5rem);
+  --space-12: clamp(4.5rem, 4.23rem + 1.35vw, 5.75rem);
+  --space-16: clamp(6rem, 5.63rem + 1.85vw, 7.5rem);
+
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-base: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
+  --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 8px 12px rgba(0, 0, 0, 0.75);
+  --shadow-lg: 0 12px 20px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.85);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.9);
+
+  /* Elevation (depth layering) */
+  --elevation-1: var(--shadow-xs);
+  --elevation-2: var(--shadow-sm);
+  --elevation-3: var(--shadow-base);
+  --elevation-4: var(--shadow-md);
+  --elevation-5: var(--shadow-lg);
+
+  /* Timing */
+  --duration-fastest: 75ms;
+  --duration-faster: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+  --duration-slowest: 1s;
+
+  /* Easing Functions */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Transitions */
+  --transition-fast: all var(--duration-fast) var(--ease-in-out);
+  --transition-normal: all var(--duration-normal) var(--ease-in-out);
+  --transition-slow: all var(--duration-slow) var(--ease-in-out);
+
+  /* Breakpoints (for reference in CSS Grid/Flexbox, not media queries) */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Chess Board */
+  --board-size: clamp(240px, 70vw, 600px);
+  --square-size: calc(var(--board-size) / 8);
+
+  /* Z-Index Scale */
+  --z-hide: -1;
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+
+  /* Focus Outline */
+  --focus-ring: 2px solid var(--color-primary);
+  --focus-ring-offset: 2px;
+}
+
+/* Shorthand aliases for convenience */
+:root {
+  --color-bg: var(--color-bg-base);
+  --color-surface: var(--color-bg-elevated);
+  --color-surface-2: var(--color-bg-interactive);
+  --color-border: var(--color-border-default);
+  --color-text: var(--color-text-primary);
+  --color-text-muted: var(--color-text-secondary);
+  --color-accent: var(--color-primary);
+  --color-accent-hover: var(--color-primary-light);
+  --color-white-square: var(--color-board-light);
+  --color-black-square: var(--color-board-dark);
+  --color-highlight: color-mix(in oklch, var(--color-primary) 45%, transparent);
+  --color-last-move: color-mix(in oklch, var(--color-primary) 25%, transparent);
+  --shadow-accent: 0 0 20px color-mix(in oklch, var(--color-primary) 30%, transparent);
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fastest: 0ms;
+    --duration-faster: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+
+    --transition-fast: none;
+    --transition-normal: none;
+    --transition-slow: none;
+  }
+}
+
+/* Dark Mode (default) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg-base: oklch(98% 0 0);
+    --color-bg-elevated: oklch(96% 0 0);
+    --color-bg-interactive: oklch(94% 0 0);
+    --color-bg-hover: oklch(90% 0 0);
+
+    --color-text-primary: oklch(18% 0 0);
+    --color-text-secondary: oklch(40% 0 0);
+    --color-text-tertiary: oklch(55% 0 0);
+    --color-text-inverse: oklch(95% 0 0);
+
+    --color-border-subtle: oklch(90% 0 0);
+    --color-border-default: oklch(80% 0 0);
+
+    --color-board-light: oklch(92% 0.02 60);
+    --color-board-dark: oklch(65% 0.05 60);
+
+    --color-white-piece: oklch(98% 0 0);
+    --color-black-piece: oklch(20% 0 0);
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.15);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 8px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 12px 20px rgba(0, 0, 0, 0.35);
+    --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.4);
+    --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.45);
+  }
+}

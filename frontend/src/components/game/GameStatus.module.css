@@ -1,0 +1,72 @@
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-base);
+}
+
+.players {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.player {
+  color: var(--color-text-secondary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+  flex: 1;
+  text-align: center;
+}
+
+.active {
+  background: var(--color-bg-interactive);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  border: 1px solid var(--color-border-default);
+}
+
+.vs {
+  color: var(--color-text-tertiary);
+  font-size: var(--text-xs);
+}
+
+.turnIndicator {
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.yourTurn {
+  background: color-mix(in oklch, var(--color-primary) 15%, transparent);
+  color: var(--color-primary-light);
+}
+
+.check {
+  background: color-mix(in oklch, var(--color-check) 15%, transparent);
+  color: var(--color-check);
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+.gameOver {
+  align-items: center;
+}
+
+.resultText {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-light);
+}
+
+@keyframes pulse {
+  from { opacity: 0.7 }
+  to { opacity: 1 }
+}

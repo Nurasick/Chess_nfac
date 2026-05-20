@@ -1,0 +1,87 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-1);
+  overflow-x: auto;
+}
+
+.tab {
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: none;
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-interactive);
+}
+
+.activeTab {
+  color: var(--color-primary-light);
+  border-bottom: 2px solid var(--color-primary);
+  margin-bottom: -1px;
+}
+
+.content {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.pageBtn {
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg-interactive);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-base);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  transition: var(--transition-fast);
+}
+
+.pageBtn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.pageBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageNum {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}

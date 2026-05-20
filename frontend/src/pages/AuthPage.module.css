@@ -1,0 +1,58 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, color-mix(in oklch, var(--color-primary) 12%, transparent), transparent),
+    var(--color-bg-base);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-light);
+  margin: 0 0 var(--space-2);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.footer {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.footerLink {
+  color: var(--color-primary-light);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,102 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.gameLink {
+  text-decoration: none;
+}
+
+.gameRow {
+  display: grid;
+  grid-template-columns: 2rem 1fr 5rem 7rem;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.color {
+  font-size: var(--text-lg);
+}
+
+.opponent {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.result {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.win {
+  background: color-mix(in oklch, var(--color-success) 15%, transparent);
+  color: var(--color-success);
+}
+
+.loss {
+  background: color-mix(in oklch, var(--color-error) 15%, transparent);
+  color: var(--color-error);
+}
+
+.draw {
+  background: color-mix(in oklch, var(--color-warning) 15%, transparent);
+  color: var(--color-warning);
+}
+
+.date {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-align: right;
+}
+
+.error, .empty {
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+  padding: var(--space-8);
+}
+
+.error { color: var(--color-error); }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.pageBtn {
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg-interactive);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-base);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.pageBtn:hover:not(:disabled) { border-color: var(--color-primary); }
+.pageBtn:disabled { opacity: 0.4; cursor: not-allowed; }

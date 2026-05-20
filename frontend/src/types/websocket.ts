@@ -27,6 +27,7 @@ export interface MoveMadeMessage {
   notation: string;
   fen: string;
   move_count: number;
+  your_turn: boolean;
 }
 
 /**
@@ -106,7 +107,7 @@ export interface JoinQueueClientMessage {
 }
 
 export interface LeaveQueueClientMessage {
-  type: 'leave_queue';
+  type: 'queue_leave';
   payload: Record<string, unknown>;
 }
 

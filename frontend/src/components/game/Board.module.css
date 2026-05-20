@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  width: var(--board-size);
+  height: var(--board-size);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl), var(--shadow-accent);
+  border: 2px solid var(--color-border-default);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}

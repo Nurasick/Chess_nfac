@@ -1,0 +1,12 @@
+{
+  "nav": { "home": "Басты бет", "leaderboard": "Рейтинг", "profile": "Профиль", "logout": "Шығу", "login": "Кіру" },
+  "auth": { "login": "Кіру", "register": "Тіркелу", "username": "Пайдаланушы аты", "email": "Email", "password": "Құпия сөз", "city": "Қала", "loginBtn": "Кіру", "registerBtn": "Тіркелу", "noAccount": "Аккаунт жоқ па?", "hasAccount": "Аккаунт бар ма?", "loginTitle": "Жүйеге кіру", "registerTitle": "Аккаунт жасау" },
+  "game": { "yourTurn": "Сіздің жүрісіңіз", "opponentTurn": "Қарсыластың жүрісі", "check": "Шах!", "checkmate": "Мат!", "stalemate": "Пат", "draw": "Тең", "resign": "Бас тарту", "offerDraw": "Тең ұсыну", "white": "Ақ", "black": "Қара", "moves": "Жүрістер", "shareLink": "Ойынды бөлісу", "result": { "win": "Жеңіс", "loss": "Жеңіліс", "draw": "Тең" } },
+  "queue": { "findGame": "Ойын табу", "waiting": "Қарсылас іздеу...", "cancel": "Бас тарту", "timeControl": "Уақыт бақылауы", "position": "Кезектегі орын", "estimated": "Шамалы уақыт" },
+  "leaderboard": { "title": "Үздіктер тізімі", "rank": "Орын", "player": "Ойыншы", "rating": "Рейтинг", "games": "Ойындар", "city": "Қала", "global": "Жаһандық" },
+  "cities": { "Almaty": "Алматы", "Astana": "Астана", "Shymkent": "Шымкент" },
+  "analysis": { "evaluation": "Позиция бағасы", "bestMoves": "Үздік жүрістер", "depth": "Тереңдік" },
+  "errors": { "networkError": "Желі қатесі", "authRequired": "Авторизация қажет", "invalidMove": "Рұқсат етілмеген жүріс" },
+  "profile": { "rating": "Рейтинг", "games": "Ойындар", "wins": "Жеңістер", "losses": "Жеңілістер", "draws": "Тең" },
+  "history": { "title": "Ойын тарихы", "noGames": "Ойналған ойын жоқ", "date": "Күн", "opponent": "Қарсылас", "result": "Нәтиже" }
+}
