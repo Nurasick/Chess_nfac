@@ -93,3 +93,12 @@ export type Move = z.infer<typeof MoveSchema>
 export type LeaderboardEntry = z.infer<typeof LeaderboardEntrySchema>
 export type LoginResponse = z.infer<typeof LoginResponseSchema>
 export type RefreshResponse = z.infer<typeof RefreshResponseSchema>
+
+export type PaginatedResponse<T> = {
+  data: T[]
+  error: string | null
+  message: string
+  total: number
+  page: number
+  limit: number
+}
