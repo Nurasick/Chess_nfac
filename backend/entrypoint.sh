@@ -1,10 +1,12 @@
 #!/bin/sh
-
-# Exit immediately if a command exits with a non-zero status
 set -e
 
+echo "📦 Verifying migration files exist..."
+ls -la ./db/migrations
+
 echo "🚀 Running database migrations..."
-./chess-server migrate
+# Try running standard migration
+./chess-server migrate || ./chess-server migrate --dir ./db/migrations || ./chess-server migrate -path ./db/migrations
 
 echo "🌐 Starting Chess Server..."
 exec ./chess-server
