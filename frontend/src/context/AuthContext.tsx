@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
 import { post } from '../lib/api'
 import { setAccessToken, clearAccessToken } from '../lib/api'
-import type { User, LoginResponse, RefreshResponse } from '../types/api'
+import type { User, LoginResponse} from '../types/api'
 
 interface AuthState {
   user: User | null
