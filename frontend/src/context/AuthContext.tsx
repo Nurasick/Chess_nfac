@@ -36,18 +36,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = useCallback(async (username: string, email: string, password: string, city: string) => {
     const res = await post<LoginResponse>('/auth/register', { username, email, password, city })
-    setAccessToken(res.access_token)
-    localStorage.setItem('refresh_token', res.refresh_token)
-    localStorage.setItem('user', JSON.stringify(res.user))
-    setState({ user: res.user, accessToken: res.access_token, refreshToken: res.refresh_token })
+    
+    // 🖥️ FIX: Destructuring token and user data from inside the .data block
+    const { access_token, refresh_token, user } = res.data
+    
+    setAccessToken(access_token)
+    localStorage.setItem('refresh_token', refresh_token)
+    localStorage.setItem('user', JSON.stringify(user))
+    setState({ user, accessToken: access_token, refreshToken: refresh_token })
   }, [])
 
   const login = useCallback(async (username: string, password: string) => {
     const res = await post<LoginResponse>('/auth/login', { username, password })
-    setAccessToken(res.access_token)
-    localStorage.setItem('refresh_token', res.refresh_token)
-    localStorage.setItem('user', JSON.stringify(res.user))
-    setState({ user: res.user, accessToken: res.access_token, refreshToken: res.refresh_token })
+    
+    // 🖥️ FIX: Destructuring token and user data from inside the .data block
+    const { access_token, refresh_token, user } = res.data
+    
+    setAccessToken(access_token)
+    localStorage.setItem('refresh_token', refresh_token)
+    localStorage.setItem('user', JSON.stringify(user))
+    setState({ user, accessToken: access_token, refreshToken: refresh_token })
   }, [])
 
   const logout = useCallback(async () => {
@@ -66,9 +74,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedRefresh = localStorage.getItem('refresh_token')
     if (!storedRefresh) throw new Error('No refresh token')
     const res = await post<RefreshResponse>('/auth/refresh', { refresh_token: storedRefresh })
-    setAccessToken(res.access_token)
-    localStorage.setItem('refresh_token', res.refresh_token)
-    setState(prev => ({ ...prev, accessToken: res.access_token, refreshToken: res.refresh_token }))
+    
+    // 🖥️ FIX: Grab variables out of the nested data layer
+    const { access_token, refresh_token } = res.data
+    
+    setAccessToken(access_token)
+    localStorage.setItem('refresh_token', refresh_token)
+    setState(prev => ({ ...prev, accessToken: access_token, refreshToken: refresh_token }))
   }, [])
 
   return (
