@@ -1,27 +1,27 @@
 FROM golang:1.23-alpine AS builder
 WORKDIR /app
+
+# Copy dependency files
 COPY go.mod go.sum ./
 RUN go mod download
+
+# Copy all source files 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o ./chess-server ./main.go
+
+# Build the application binary cleanly into /app/chess-server
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/chess-server ./main.go
 
 FROM alpine:3.19
-RUN apk --no-cache add ca-certificates
-COPY --from=builder /chess-server /chess-server
-EXPOSE 8080
-ENTRYPOINT ["/chess-server"]
-
-FROM alpine:3.19
-
-RUN apk --no-cache add ca-certificates
+# Install ca-certificates and dos2unix to fix Windows script line-endings
+RUN apk --no-cache add ca-certificates dos2unix
 WORKDIR /app
 
-# Copy the built binary from the builder stage
+# Copy binary from builder stage
 COPY --from=builder /app/chess-server .
 
-# Copy the entrypoint script into the container
+# Copy and fix the entrypoint script
 COPY entrypoint.sh .
+RUN dos2unix entrypoint.sh
 RUN chmod +x entrypoint.sh
 
-# Use ENTRYPOINT to handle the migration flow
 ENTRYPOINT ["./entrypoint.sh"]
