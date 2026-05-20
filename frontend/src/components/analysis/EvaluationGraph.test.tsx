@@ -5,6 +5,8 @@ import { EvaluationGraph } from './EvaluationGraph'
 import type { EvalPoint } from '../../types/evaluation'
 
 let capturedData: unknown[] = []
+let capturedFormatter: ((v: unknown, _: unknown, p: { payload?: { label?: string } }) => unknown) | undefined
+let capturedLabelFormatter: ((label: unknown) => unknown) | undefined
 
 vi.mock('recharts', async () => {
   const actual = await vi.importActual<typeof import('recharts')>('recharts')
@@ -14,6 +16,14 @@ vi.mock('recharts', async () => {
     LineChart: ({ data, children }: { data: unknown[]; children: React.ReactNode }) => {
       capturedData = data
       return <div data-testid="line-chart">{children}</div>
+    },
+    Tooltip: ({ formatter, labelFormatter }: {
+      formatter?: (v: unknown, _: unknown, p: { payload?: { label?: string } }) => unknown
+      labelFormatter?: (label: unknown) => unknown
+    }) => {
+      capturedFormatter = formatter
+      capturedLabelFormatter = labelFormatter
+      return null
     },
   }
 })
@@ -35,6 +45,8 @@ function makePoint(moveNumber: number, score: number, mate?: number | null): Eva
 describe('EvaluationGraph', () => {
   beforeEach(() => {
     capturedData = []
+    capturedFormatter = undefined
+    capturedLabelFormatter = undefined
   })
 
   it('renders empty state when evalHistory is empty', () => {
@@ -65,5 +77,23 @@ describe('EvaluationGraph', () => {
   it('non-mate label renders as score.toFixed(2)', () => {
     render(<EvaluationGraph evalHistory={[makePoint(1, 1.5)]} />)
     expect((capturedData[0] as { label: string }).label).toBe('1.50')
+  })
+
+  it('Tooltip formatter returns payload label when available', () => {
+    render(<EvaluationGraph evalHistory={[makePoint(1, 0.5)]} />)
+    const result = capturedFormatter?.(0.5, undefined, { payload: { label: '0.50' } })
+    expect(result).toEqual(['0.50', 'analysis.eval'])
+  })
+
+  it('Tooltip formatter falls back to String(value) when no payload label', () => {
+    render(<EvaluationGraph evalHistory={[makePoint(1, 0.5)]} />)
+    const result = capturedFormatter?.(0.5, undefined, {})
+    expect(result).toEqual(['0.5', 'analysis.eval'])
+  })
+
+  it('Tooltip labelFormatter returns move label', () => {
+    render(<EvaluationGraph evalHistory={[makePoint(1, 0.5)]} />)
+    const result = capturedLabelFormatter?.(3)
+    expect(result).toBe('analysis.move 3')
   })
 })
