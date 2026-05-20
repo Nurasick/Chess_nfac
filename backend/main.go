@@ -58,6 +58,11 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+	databaseURL := os.Getenv("DATABASE_URL")
+	log.Println("Running database migrations...")
+	if err := runMigrations(databaseURL); err != nil {
+		log.Fatalf("Failed to run migrations: %v", err)
+	}
 
 	// Database
 	pool, err := db.NewPool(ctx, cfg.DatabaseURL)
