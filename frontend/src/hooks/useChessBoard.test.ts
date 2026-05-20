@@ -56,7 +56,8 @@ describe('useChessBoard', () => {
 
   it('loadPosition(fen) updates the fen in state', () => {
     const { result } = renderHook(() => useChessBoard());
-    const newFen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1';
+    // Use a FEN without en passant to avoid chess.js normalization
+    const newFen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1';
     act(() => {
       result.current.loadPosition(newFen);
     });
@@ -65,7 +66,7 @@ describe('useChessBoard', () => {
 
   it('applyServerMove("e2e4", newFen) sets lastMove = { from: "e2", to: "e4" }', () => {
     const { result } = renderHook(() => useChessBoard());
-    const newFen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1';
+    const newFen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1';
     act(() => {
       result.current.applyServerMove('e2e4', newFen);
     });

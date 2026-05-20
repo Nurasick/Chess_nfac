@@ -3,6 +3,7 @@ import { WebSocketClient } from '../lib/websocket';
 
 interface MockWs {
   readyState: number;
+  url: string;
   send: ReturnType<typeof vi.fn>;
   close: ReturnType<typeof vi.fn>;
   onopen: ((ev: Event) => void) | null;
@@ -12,22 +13,26 @@ interface MockWs {
 }
 
 let mockWs: MockWs;
-const MockWebSocket = vi.fn().mockImplementation(() => {
-  mockWs = {
-    readyState: 0,
-    send: vi.fn(),
-    close: vi.fn().mockImplementation(function (this: MockWs) {
-      this.readyState = 3;
-    }),
-    onopen: null,
-    onmessage: null,
-    onerror: null,
-    onclose: null,
-  };
-  return mockWs;
-});
-(MockWebSocket as unknown as { OPEN: number }).OPEN = 1;
-(MockWebSocket as unknown as { CLOSED: number }).CLOSED = 3;
+
+class MockWebSocket {
+  static OPEN = 1;
+  static CLOSED = 3;
+  readyState = 0;
+  url: string;
+  send = vi.fn();
+  close = vi.fn();
+  onopen: ((ev: Event) => void) | null = null;
+  onmessage: ((ev: MessageEvent) => void) | null = null;
+  onerror: ((ev: Event) => void) | null = null;
+  onclose: ((ev: CloseEvent) => void) | null = null;
+
+  constructor(url: string) {
+    this.url = url;
+    this.close = vi.fn(() => { this.readyState = 3; });
+    this.send = vi.fn();
+    mockWs = this as unknown as MockWs;
+  }
+}
 
 describe('WebSocketClient', () => {
   let client: WebSocketClient;
@@ -36,7 +41,6 @@ describe('WebSocketClient', () => {
   beforeEach(() => {
     vi.stubGlobal('WebSocket', MockWebSocket);
     client = new WebSocketClient(wsUrl);
-    MockWebSocket.mockClear();
   });
 
   afterEach(() => {
@@ -45,7 +49,7 @@ describe('WebSocketClient', () => {
 
   it('connect() creates new WebSocket with the correct URL', () => {
     client.connect();
-    expect(MockWebSocket).toHaveBeenCalledWith(wsUrl);
+    expect(mockWs.url).toBe(wsUrl);
   });
 
   it('disconnect() calls ws.close() and isConnected() returns false', () => {
