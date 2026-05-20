@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { login as apiLogin, logout as apiLogout } from '../lib/apiClient'
+import { login as apiLogin, logout as apiLogout, register as apiRegister } from '../lib/apiClient'
 import type { User } from '../types/api'
 
 function loadPersistedUser(): User | null {
@@ -32,6 +32,21 @@ export function useAuth() {
     }
   }
 
+  async function register(username: string, email: string, password: string, city: string) {
+    setIsLoading(true)
+    try {
+      const res = await apiRegister(username, email, password, city)
+      const { user: registeredUser, access_token, refresh_token } = res.data
+      localStorage.setItem('access_token', access_token)
+      localStorage.setItem('refresh_token', refresh_token)
+      localStorage.setItem('user', JSON.stringify(registeredUser))
+      setUser(registeredUser)
+      return registeredUser
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   async function logout() {
     setIsLoading(true)
     try {
@@ -45,5 +60,5 @@ export function useAuth() {
     }
   }
 
-  return { user, isLoading, login, logout }
+  return { user, isLoading, login, register, logout }
 }

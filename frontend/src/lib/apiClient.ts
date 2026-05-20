@@ -32,6 +32,19 @@ async function handleResponse<T>(res: Response): Promise<T> {
   return body as T
 }
 
+export async function register(username: string, email: string, password: string, city: string) {
+  const res = await fetch(`${BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, email, password, city }),
+  })
+  return handleResponse<{
+    data: { user: User; access_token: string; refresh_token: string }
+    error: string | null
+    message: string
+  }>(res)
+}
+
 export async function login(email: string, password: string) {
   const res = await fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',

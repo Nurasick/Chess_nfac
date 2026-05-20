@@ -1,0 +1,13 @@
+{
+  "nav": { "home": "Главная", "leaderboard": "Рейтинг", "profile": "Профиль", "logout": "Выход", "login": "Войти", "history": "История партий" },
+  "auth": { "login": "Войти", "register": "Регистрация", "username": "Имя пользователя", "email": "Email", "password": "Пароль", "city": "Город", "loginBtn": "Войти", "registerBtn": "Зарегистрироваться", "noAccount": "Нет аккаунта?", "hasAccount": "Уже есть аккаунт?", "loginTitle": "Вход в систему", "registerTitle": "Создать аккаунт", "loginSubtitle": "Войдите в свой аккаунт", "registerSubtitle": "Создайте новый аккаунт", "logout": "Выйти" },
+  "home": { "headline": "Играйте в шахматы онлайн", "subline": "Находите соперников по рейтингу в реальном времени", "playNow": "Найти партию" },
+  "game": { "yourTurn": "Ваш ход", "opponentTurn": "Ход соперника", "check": "Шах!", "checkmate": "Мат!", "stalemate": "Пат", "draw": "Ничья", "resign": "Сдаться", "offerDraw": "Предложить ничью", "white": "Белые", "black": "Чёрные", "moves": "Ходы", "shareLink": "Поделиться партией", "result": { "win": "Победа", "loss": "Поражение", "draw": "Ничья" } },
+  "queue": { "findGame": "Найти партию", "waiting": "Поиск соперника...", "searching": "Поиск соперника...", "cancel": "Отмена", "timeControl": "Контроль времени", "position": "Позиция в очереди: {{position}}", "estimated": "Примерное время" },
+  "leaderboard": { "title": "Таблица лидеров", "rank": "Место", "player": "Игрок", "rating": "Рейтинг", "games": "Партии", "city": "Город", "global": "Глобальный", "page": "Страница {{page}}", "noPlayers": "Нет игроков" },
+  "cities": { "Almaty": "Алматы", "Astana": "Астана", "Shymkent": "Шымкент" },
+  "analysis": { "evaluation": "Оценка позиции", "bestMoves": "Лучшие ходы", "depth": "Глубина" },
+  "errors": { "networkError": "Ошибка сети", "authRequired": "Требуется авторизация", "invalidMove": "Недопустимый ход", "loadFailed": "Ошибка загрузки данных", "invalidCredentials": "Неверный логин или пароль", "registrationFailed": "Ошибка регистрации" },
+  "profile": { "rating": "Рейтинг", "games": "Партии", "wins": "Победы", "losses": "Поражения", "draws": "Ничьи" },
+  "history": { "title": "История партий", "noGames": "Нет сыгранных партий", "date": "Дата", "opponent": "Соперник", "result": "Результат" }
+}

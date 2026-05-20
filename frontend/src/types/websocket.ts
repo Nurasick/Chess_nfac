@@ -78,6 +78,12 @@ export interface PongMessage {
   type: 'pong';
 }
 
+export interface DrawOfferedMessage {
+  type: 'draw_offered';
+  game_id: string;
+  by_player_id: string;
+}
+
 /**
  * Union of all possible WebSocket messages from server
  */
@@ -88,7 +94,8 @@ export type WsMessage =
   | QueueStatusMessage
   | GameStateMessage
   | ErrorMessage
-  | PongMessage;
+  | PongMessage
+  | DrawOfferedMessage;
 
 /**
  * Client-side message types
@@ -169,4 +176,8 @@ export function isError(msg: WsMessage): msg is ErrorMessage {
 
 export function isPong(msg: WsMessage): msg is PongMessage {
   return msg.type === 'pong';
+}
+
+export function isDrawOffered(msg: WsMessage): msg is DrawOfferedMessage {
+  return msg.type === 'draw_offered';
 }
